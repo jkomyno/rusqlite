@@ -33,6 +33,10 @@ fn copy_bindings<T: AsRef<Path>>(dir: &str, bindgen_name: &str, out_path: T) {
 }
 
 fn main() {
+    if cfg!(feature = "no-build") {
+        return;
+    }
+
     let out_dir = env::var("OUT_DIR").unwrap();
     let out_path = Path::new(&out_dir).join("bindgen.rs");
     if cfg!(feature = "in_gecko") {
